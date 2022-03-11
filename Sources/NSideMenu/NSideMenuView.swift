@@ -95,7 +95,7 @@ public struct NSideMenuView<V1, V2>: View where V1: View, V2: View {
                     let overlay = options.overlayWhenSlideAbove {
                     main
                         .cornerRadius(options.show && (options.style == .scale || options.style == .rotate) ? options.cornerRaduisIfNeeded : 0)
-                        .overlay(overlay)
+                    overlay
                         .blur(radius: options.blurWhenSlideAbove)
                         .onTapGesture {
                             options.toggleMenu()
