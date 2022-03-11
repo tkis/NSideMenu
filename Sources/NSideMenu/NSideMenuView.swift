@@ -91,10 +91,20 @@ public struct NSideMenuView<V1, V2>: View where V1: View, V2: View {
                         .offset(x: options.show ? getSkeletonOffset()*2 : 0)
                         .padding(.vertical, 64)
                 }
-                main
-                    .if((options.show && (options.style == .scale || options.style == .rotate)), transform: { view in
-                        view.cornerRadius(options.cornerRaduisIfNeeded)
-                    })
+                if options.show && options.style == .slideAbove,
+                    let overlay = options.overlayWhenSlideAbove {
+                    main
+                        .cornerRadius(options.show && (options.style == .scale || options.style == .rotate) ? options.cornerRaduisIfNeeded : 0)
+                        .overlay(overlay)
+                        .blur(radius: options.blurWhenSlideAbove)
+                        .onTapGesture {
+                            options.toggleMenu()
+                        }
+                } else {
+                    main
+                        .cornerRadius(options.show && (options.style == .scale || options.style == .rotate) ? options.cornerRaduisIfNeeded : 0)
+                }
+                
             }
             .scaleEffect(
                 getMainScale()

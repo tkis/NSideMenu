@@ -75,6 +75,12 @@ public class NSideMenuOptions: ObservableObject{
         }
     }
     
+    /// Main view overlay when menu presented - works only with NSideMenuStyle.slideAbove
+    @Published public var overlayWhenSlideAbove: Color?
+    
+    /// Main view overlay when menu presented - requires overlayWhenSlideAbove to be not nil
+    @Published public var blurWhenSlideAbove: Double
+    
     /// Main view content Skeleton Stack visiblity.
     @Published public var showSkeletonStack: Bool;
     
@@ -105,6 +111,8 @@ public class NSideMenuOptions: ObservableObject{
     public init(
         style: NSideMenuStyle = .normal,
         side: NSideMenuSide = .leading,
+        overlayWhenSlideAbove: Color? = nil,
+        blurWhenSlideAobve: Double = 0.0,
         width: CGFloat = 186,
         showSkeletonStack: Bool = false,
         skeletonStackColor: Color = Color(UIColor.systemBackground),
@@ -130,6 +138,8 @@ public class NSideMenuOptions: ObservableObject{
         self.onWillOpen = onWillOpen
         self.onDidClose = onDidClose
         self.onDidOpen = onDidOpen
+        self.overlayWhenSlideAbove = overlayWhenSlideAbove
+        self.blurWhenSlideAbove = blurWhenSlideAobve
     }
     
     /// This method to toggle the side menu visiblity from open to close or from close to open.
